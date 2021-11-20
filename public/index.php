@@ -1,5 +1,6 @@
 <?php
 include "../vendor/autoload.php"; // подключили автозагрузку
+include "../app/core.php"; //подключили файл core
 
 //print_r($_SERVER['REQUEST_URI']); // смотрим, какой адрес запрашивается
 
@@ -7,14 +8,18 @@ include "../vendor/autoload.php"; // подключили автозагрузк
 $routes = [
     '/' => 'App\\Controllers\\SiteController@index', // если запрашивается '/' вызывается класс SiteControllers и его метод index
     '/catalog' => 'App\\Controllers\\CatalogController@index',
-    '/catalog/11' => 'App\\Controllers\\CatalogController@showProduct'
+    '/product' => 'App\\Controllers\\CatalogController@showProduct',
+    '/add_product_form' => 'App\\Controllers\\CatalogController@showForm',
+    '/save_product' => 'App\\Controllers\\CatalogController@saveProduct'
 ];
 
 $runAction = 'App\\Controllers\\SiteController@notFound';
+$uri = explode('?', $_SERVER['REQUEST_URI']);
+$uri = $uri[0];
 
 // перебираем пути, сравниваем с запрашиваемым
 foreach ($routes as $route => $action) {
-    if($_SERVER['REQUEST_URI'] == $route) {
+    if($uri == $route) {
         $runAction = $action;
         break;
     }

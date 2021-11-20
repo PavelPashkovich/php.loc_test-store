@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var \App\Models\Product $product
+ * @var array $productsList
+ */
+print_r($product);
+print_r($productsList);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
