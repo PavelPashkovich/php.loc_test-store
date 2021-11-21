@@ -10,7 +10,9 @@ $routes = [
     '/catalog' => 'App\\Controllers\\CatalogController@index',
     '/product' => 'App\\Controllers\\CatalogController@showProduct',
     '/add_product_form' => 'App\\Controllers\\CatalogController@showForm',
-    '/save_product' => 'App\\Controllers\\CatalogController@saveProduct'
+    '/save_product' => 'App\\Controllers\\CatalogController@saveProduct',
+    '/add_products_form' => 'App\\Controllers\\CatalogController@addProductsForm',
+    '/save_products' => 'App\\Controllers\\CatalogController@saveProducts'
 ];
 
 $runAction = 'App\\Controllers\\SiteController@notFound';
