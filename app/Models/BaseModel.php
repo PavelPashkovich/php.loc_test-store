@@ -4,6 +4,8 @@ namespace App\Models;
 
 class BaseModel
 {
+    protected static $fillable = [];
+
     protected static $tableName;
     protected static $connection;
 //одно подключение к БД
@@ -50,4 +52,29 @@ class BaseModel
         $result = $smth->get_result();
         return $result->fetch_object(static::class);
     }
+
+    public function save() {
+        $connection = self::getConnection();
+        $tableName = static::getTableName();
+
+        if (isset($this->id) && !empty($this->id)){
+            // update query
+        } else {
+            $fields = implode(' , ', static::$fillable);
+            $values = [];
+
+            foreach (static::$fillable as $attributeName) {
+                $values[] = $this->{$attributeName} ?? null;
+            }
+            $values = "'".implode("' , '", $values)."'";
+            print_r($values);
+            $sql = "INSERT INTO {$tableName} ({$fields}) VALUES ({$values})";
+            $connection->query($sql);
+//        print_r($connection->insert_id);
+            if ($connection->insert_id) {
+                $this->id = $connection->insert_id;
+            }
+        }
+    }
+
 }

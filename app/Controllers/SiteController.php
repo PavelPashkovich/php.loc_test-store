@@ -9,6 +9,11 @@ class SiteController
 {
     public function index()
     {
+        $product = new Product();
+        $product->name = 'prod_name';
+        $product->description = 'text';
+        $product->save();
+
         Product::findById(2);
 
         render('main.php');
