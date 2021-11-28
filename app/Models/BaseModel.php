@@ -50,7 +50,7 @@ class BaseModel
         $smth->bind_param("i", $id);
         $smth->execute();
         $result = $smth->get_result();
-        return $result->fetch_object(static::class);
+        echo "<pre>"; print_r($result->fetch_object(static::class)); echo "</pre>";
     }
 
     public function save() {
@@ -59,6 +59,9 @@ class BaseModel
 
         if (isset($this->id) && !empty($this->id)){
             // update query
+            $sql = "UPDATE {$tableName} SET name = 'sssssss', description = 'fffffff' WHERE id = {$this->id}";
+            $connection->query($sql);
+
         } else {
             $fields = implode(' , ', static::$fillable);
             $values = [];
@@ -67,7 +70,7 @@ class BaseModel
                 $values[] = $this->{$attributeName} ?? null;
             }
             $values = "'".implode("' , '", $values)."'";
-            print_r($values);
+//            print_r($values);
             $sql = "INSERT INTO {$tableName} ({$fields}) VALUES ({$values})";
             $connection->query($sql);
 //        print_r($connection->insert_id);
