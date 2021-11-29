@@ -11,8 +11,8 @@ class SiteController
     {
         $product = new Product();
         $product->id = 5;
-        $product->name = 'axaxaxa';
-        $product->description = 'oxoxoxox';
+        $product->name = 'Bike';
+        $product->description = 'Red';
         $product->save();
 
         Product::findById(5);

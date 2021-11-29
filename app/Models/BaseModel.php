@@ -58,8 +58,16 @@ class BaseModel
         $tableName = static::getTableName();
 
         if (isset($this->id) && !empty($this->id)){
-            // update query
-            $sql = "UPDATE {$tableName} SET name = 'sssssss', description = 'fffffff' WHERE id = {$this->id}";
+            $values = [];
+
+            foreach (static::$fillable as $attributeName) {
+                $values[] = $attributeName.' = '.'"'.$this->{$attributeName}.'"';
+            }
+//            echo "<pre>"; print_r($values); echo "</pre>";
+            $values = implode(', ', $values);
+//            echo "<pre>"; print_r($values); echo "</pre>";
+            $sql = "UPDATE {$tableName} SET {$values} WHERE id = {$this->id}";
+//            echo "<pre>"; print_r($sql); echo "</pre>";
             $connection->query($sql);
 
         } else {
@@ -72,6 +80,7 @@ class BaseModel
             $values = "'".implode("' , '", $values)."'";
 //            print_r($values);
             $sql = "INSERT INTO {$tableName} ({$fields}) VALUES ({$values})";
+//            echo "<pre>"; print_r($sql); echo "</pre>";
             $connection->query($sql);
 //        print_r($connection->insert_id);
             if ($connection->insert_id) {
