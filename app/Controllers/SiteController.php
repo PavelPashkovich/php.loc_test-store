@@ -10,13 +10,14 @@ class SiteController
     public function index()
     {
         $product = new Product();
-        $product->name = 'prod_name';
-        $product->description = 'text';
+        $product->id = 5;
+        $product->name = 'Bike';
+        $product->description = 'Red';
         $product->save();
 
-        Product::findById(2);
+        Product::findById(5);
 
-        render('main.php');
+//        render('main.php');
 //        include __DIR__.'/../../views/main.php';
     }
 
